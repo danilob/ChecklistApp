@@ -13,7 +13,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String mDatabaseName = "banco.db";
     private static final int mVersion = 1;
 
+    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
+    }
+
     public DatabaseHelper(Context context) {
+
         super(context, mDatabaseName, null, mVersion);
     }
 

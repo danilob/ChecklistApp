@@ -1,10 +1,12 @@
 package com.example.danilo.checklistapp.model;
 
+import java.io.Serializable;
+
 /**
  * Created by danilo on 03/05/18.
  */
 
-public class Checklist {
+public class Checklist implements Serializable{
 
     private int mId;
     private String mDescription;

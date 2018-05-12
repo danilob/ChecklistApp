@@ -35,6 +35,7 @@ public class ChecklistDAO {
         String[] params = new String[1];
         params[0] = String.valueOf(id);
 
+
         mConnection.delete("Checklist","ID = ?",params);
 
     }
@@ -74,6 +75,31 @@ public class ChecklistDAO {
         }
 
         return checklists;
+    }
+
+    public List<String> listChecklistsDescription(){
+        List<String> checklists_descriptions = new ArrayList<String>();
+        //mConnection.q
+        Cursor result = mConnection.rawQuery(ScriptDLL.getChecklists(),null);
+
+
+
+        if(result.getCount()>0){
+            result.moveToFirst();
+            do{
+                Checklist chk = new Checklist();
+                chk.setId(result.getInt(result.getColumnIndexOrThrow("ID")));
+                chk.setDescription(result.getString(result.getColumnIndexOrThrow("Description")));
+                boolean value = result.getInt(result.getColumnIndexOrThrow("Active")) > 0;
+                chk.setActive(value);
+
+                checklists_descriptions.add("Id: "+chk.getId()+" - "+chk.getDescription()+" ("+String.valueOf(chk.isActive())+")");
+
+            }while(result.moveToNext());
+
+        }
+
+        return checklists_descriptions;
     }
 
     public Checklist getChecklist(int id){
